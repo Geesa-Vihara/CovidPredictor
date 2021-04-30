@@ -1,10 +1,14 @@
 from flask import Flask, request, jsonify
 import numpy as np
 import joblib
+from flask_cors import CORS, cross_origin
 
 app = Flask(__name__)
+cors = CORS(app)
+app.config['CORS_HEADERS'] = 'Content-Type'
 
 @app.route('/predict', methods=['POST'])
+@cross_origin()
 def predict():    
     request_data = request.get_json()
     test_date = request_data['test_date']
@@ -39,6 +43,7 @@ def preprocessDataAndPredict(cough, fever, sore_throat, shortness_of_breath, hea
     pass
 
 @app.route('/')
+@cross_origin()
 def index():
     return "<h1>COVID-19 PREDICTOR!</h1>"
 
