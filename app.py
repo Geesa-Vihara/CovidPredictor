@@ -3,13 +3,13 @@ import numpy as np
 import joblib
 from flask_cors import CORS, cross_origin
 from twilio.rest import Client
-from dotenv import load_dotenv
+#from dotenv import load_dotenv
 from pathlib import Path
 import os
 
-load_dotenv()
-env_path = Path('.')/'.env'
-load_dotenv(dotenv_path=env_path)
+#load_dotenv()
+#env_path = Path('.')/'.env'
+#load_dotenv(dotenv_path=env_path)
 
 app = Flask(__name__)
 cors = CORS(app)
@@ -50,22 +50,22 @@ def preprocessDataAndPredict(cough, fever, sore_throat, shortness_of_breath, hea
     return prediction
     pass
 
-@app.route('/sms', methods=['POST'])
-@cross_origin()
-def sms():
-    request_data = request.get_json()
-    from_number = request_data['from_number']
-    to_number = request_data['to_number']
-    message_body = request_data['message_body']
-    account_sid = os.getenv("ACCOUNT_SID")
-    auth_token = os.getenv("AUTH_TOKEN")
-    client = Client(account_sid, auth_token)
-    message = client.messages.create(
-                body=message_body,
-                from_=from_number,
-                to=to_number
-            )
-    return message.sid
+# @app.route('/sms', methods=['POST'])
+# @cross_origin()
+# def sms():
+#     request_data = request.get_json()
+#     from_number = request_data['from_number']
+#     to_number = request_data['to_number']
+#     message_body = request_data['message_body']
+#     account_sid = os.getenv("ACCOUNT_SID")
+#     auth_token = os.getenv("AUTH_TOKEN")
+#     client = Client(account_sid, auth_token)
+#     message = client.messages.create(
+#                 body=message_body,
+#                 from_=from_number,
+#                 to=to_number
+#             )
+#     return message.sid
 
 @app.route('/')
 @cross_origin()
